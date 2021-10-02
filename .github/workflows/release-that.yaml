@@ -6,5 +6,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Test 'dry-run' parameter
+        uses: ./
+        with:
+          dry-run: true
       - name: Release That
         uses: ./

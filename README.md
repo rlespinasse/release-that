@@ -22,7 +22,7 @@ This is a wrapper around [cycjimmy/semantic-release-action@v2][semantic-release]
 
 - Where the`package.json` file is not mandatory
 - Support of [Default branches][default-branches]
-  - with the addition of `vX.*` kind of branches
+  - with the addition of `vN.x` kind of branches
 - Auto-publication of a GitHub release with changelog based on the commit history
 
 [semantic-release]: https://github.com/cycjimmy/semantic-release-action
