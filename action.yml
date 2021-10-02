@@ -6,6 +6,10 @@ inputs:
     description: "Whether to run semantic release in `dry-run` mode."
     default: "false"
     required: true
+  without-prefix:
+    description: "Remove prefix from released version"
+    default: "false"
+    required: true
   github-token:
     description: "GitHub Token as provided by secrets"
     default: ${{ github.token }}
@@ -21,6 +25,7 @@ runs:
       shell: bash
       env:
         INPUT_DRYRUN: ${{ inputs.dry-run }}
+        INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
     - name: Semantic Release
       uses: cycjimmy/semantic-release-action@v2
       with:
