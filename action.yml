@@ -1,41 +1,45 @@
-name: 'Release That'
-description: 'Opinionated GitHub Action to ease the release of a repository'
+name: "Release That"
+description: "Opinionated GitHub Action to ease the release of a repository"
+author: "Romain Lespinasse"
 inputs:
   github-token:
     description: "GitHub Token as provided by secrets"
     default: ${{ github.token }}
     required: true
+branding:
+  icon: "package"
+  color: "gray-dark"
 runs:
   using: "composite"
   steps:
-      - uses: rlespinasse/github-slug-action@v3.x
-      - run: |
-          echo '{"name": "${{ env.GITHUB_REPOSITORY_NAME_PART }}","private": true,"description": "${{ env.GITHUB_REPOSITORY }}","version": "0.0.0"}' > package.json
-        shell: bash
-      - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v2
-        with:
-          branches: |    
-            [
-              '+([0-9])?(.{+([0-9]),x}).x',
-              'v+([0-9])?(.{+([0-9]),x}).x',
-              'master', 
-              'main',
-              'next', 
-              'next-major', 
-              {
-                name: 'beta', 
-                prerelease: true
-              }, 
-              {
-                name: 'alpha', 
-                prerelease: true
-              }
-            ]
-          extra_plugins: |
-            @semantic-release/commit-analyzer
-            @semantic-release/release-notes-generator
-            @semantic-release/git
-            @semantic-release/github
-        env:
-          GITHUB_TOKEN: ${{ inputs.github-token }}
+    - uses: rlespinasse/github-slug-action@v3.x
+    - run: |
+        echo '{"name": "${{ env.GITHUB_REPOSITORY_NAME_PART }}","private": true,"description": "${{ env.GITHUB_REPOSITORY }}","version": "0.0.0"}' > package.json
+      shell: bash
+    - name: Semantic Release
+      uses: cycjimmy/semantic-release-action@v2
+      with:
+        branches: |
+          [
+            '+([0-9])?(.{+([0-9]),x}).x',
+            'v+([0-9])?(.{+([0-9]),x}).x',
+            'master', 
+            'main',
+            'next', 
+            'next-major', 
+            {
+              name: 'beta', 
+              prerelease: true
+            }, 
+            {
+              name: 'alpha', 
+              prerelease: true
+            }
+          ]
+        extra_plugins: |
+          @semantic-release/commit-analyzer
+          @semantic-release/release-notes-generator
+          @semantic-release/git
+          @semantic-release/github
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
