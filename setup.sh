@@ -14,3 +14,9 @@ else
   # shellcheck disable=SC2094
   cat <<<"$(jq --argjson branches "$(<branches.json)" '.release += {branches: $branches}' package.json)" >package.json
 fi
+
+if [ "${INPUT_WITHOUTPREFIX}" == "true" ]; then
+  echo "+ Remove prefix from released version"
+  # shellcheck disable=SC2094
+  cat <<<"$(jq '.release += {tagFormat: "${version}"}' package.json)" >package.json
+fi

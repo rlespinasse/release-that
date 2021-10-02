@@ -10,5 +10,10 @@ jobs:
         uses: ./
         with:
           dry-run: true
+      - name: Test 'without-prefix' parameter
+        uses: ./
+        with:
+          dry-run: true
+          without-prefix: true
       - name: Release That
         uses: ./
