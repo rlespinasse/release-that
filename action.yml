@@ -2,6 +2,10 @@ name: "Release That"
 description: "Opinionated GitHub Action to ease the release of a repository"
 author: "Romain Lespinasse"
 inputs:
+  dry-run:
+    description: "Whether to run semantic release in `dry-run` mode."
+    default: "false"
+    required: true
   github-token:
     description: "GitHub Token as provided by secrets"
     default: ${{ github.token }}
@@ -13,29 +17,14 @@ runs:
   using: "composite"
   steps:
     - uses: rlespinasse/github-slug-action@v3.x
-    - run: |
-        echo '{"name": "${{ env.GITHUB_REPOSITORY_NAME_PART }}","private": true,"description": "${{ env.GITHUB_REPOSITORY }}","version": "0.0.0"}' > package.json
+    - run: ${{ github.action_path }}/setup.sh
       shell: bash
+      env:
+        INPUT_DRYRUN: ${{ inputs.dry-run }}
     - name: Semantic Release
       uses: cycjimmy/semantic-release-action@v2
       with:
-        branches: |
-          [
-            '+([0-9])?(.{+([0-9]),x}).x',
-            'v+([0-9])?(.{+([0-9]),x}).x',
-            'master', 
-            'main',
-            'next', 
-            'next-major', 
-            {
-              name: 'beta', 
-              prerelease: true
-            }, 
-            {
-              name: 'alpha', 
-              prerelease: true
-            }
-          ]
+        dry_run: ${{ inputs.dry-run }}
         extra_plugins: |
           @semantic-release/commit-analyzer
           @semantic-release/release-notes-generator

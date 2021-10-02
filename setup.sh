@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+echo "+ Create package.json file"
+echo '{"description": "","private": true,"version": "0.0.0","release":{}}' >package.json
+# shellcheck disable=SC2094
+cat <<<"$(jq --arg name "${GITHUB_REPOSITORY_NAME_PART}" '. += {name: $name}' package.json)" >package.json
+
+if [ "${INPUT_DRYRUN}" == "true" ]; then
+  echo "+ Setup current branch as releasable (dry-run mode)"
+  # shellcheck disable=SC2094
+  cat <<<"$(jq --arg branch "${GITHUB_REF_NAME}" '.release += {branches: [$branch]}' package.json)" >package.json
+else
+  echo "+ Setup releasable branches"
+  # shellcheck disable=SC2094
+  cat <<<"$(jq --argjson branches "$(<branches.json)" '.release += {branches: $branches}' package.json)" >package.json
+fi
