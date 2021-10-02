@@ -16,6 +16,24 @@ jobs:
       - uses: rlespinasse/release-that@v1.x
 ```
 
+## Additional inputs
+
+- **dry-run** : Whether to run semantic release in `dry-run` mode
+
+  ```yaml
+  - uses: rlespinasse/release-that@v1.x
+    with:
+      dry-run: true
+  ```
+
+- **without-prefix** : Remove prefix from released version (`v1.0.0` -> `1.0.0`)
+
+  ```yaml
+  - uses: rlespinasse/release-that@v1.x
+    with:
+      without-prefix: true
+  ```
+
 ## Under the wood
 
 This is a wrapper around [cycjimmy/semantic-release-action@v2][semantic-release] action with

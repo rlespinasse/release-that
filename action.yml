@@ -3,7 +3,7 @@ description: "Opinionated GitHub Action to ease the release of a repository"
 author: "Romain Lespinasse"
 inputs:
   dry-run:
-    description: "Whether to run semantic release in `dry-run` mode."
+    description: "Whether to run semantic release in `dry-run` mode"
     default: "false"
     required: true
   without-prefix:
