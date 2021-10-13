@@ -2,8 +2,12 @@ name: "Release That"
 description: "Opinionated GitHub Action to ease the release of a repository"
 author: "Romain Lespinasse"
 inputs:
+  system:
+    description: "Release system to use: semantic-release (default), lerna"
+    default: "semantic-release"
+    required: true
   dry-run:
-    description: "Whether to run semantic release in `dry-run` mode"
+    description: "Whether to run release in `dry-run` mode"
     default: "false"
     required: true
   without-prefix:
@@ -20,21 +24,14 @@ branding:
 runs:
   using: "composite"
   steps:
-    - uses: rlespinasse/github-slug-action@v3.x
-    - run: ${{ github.action_path }}/setup.sh
+    - name: Prepare Current Release System
+      run: $GITHUB_ACTION_PATH/current-system.sh
       shell: bash
       env:
-        INPUT_DRYRUN: ${{ inputs.dry-run }}
-        INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
-        GITHUB_ACTION_PATH: ${{ github.action_path }}
-    - name: Semantic Release
-      uses: cycjimmy/semantic-release-action@v2
+        INPUT_SYSTEM: ${{ inputs.system }}
+    - name: Launch Current Release System
+      uses: ./.current-system
       with:
-        dry_run: ${{ inputs.dry-run }}
-        extra_plugins: |
-          @semantic-release/commit-analyzer
-          @semantic-release/release-notes-generator
-          @semantic-release/git
-          @semantic-release/github
-      env:
-        GITHUB_TOKEN: ${{ inputs.github-token }}
+        dry-run: ${{ inputs.dry-run }}
+        without-prefix: ${{ inputs.without-prefix }}
+        github-token: ${{ inputs.github-token }}
