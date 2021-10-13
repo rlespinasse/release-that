@@ -99,6 +99,7 @@ This is a wrapper around [cycjimmy/semantic-release-action@v2][semantic-release]
 In a near future, the `release-that` action will support more release system with an opinionated way of doing it.
 
 [semantic-release]: https://github.com/cycjimmy/semantic-release-action
+[semantic-config]: https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration
 [default-branches]: https://github.com/cycjimmy/semantic-release-action#branches
 [metadata-file]: https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
 [action-versionning]: https://github.com/actions/toolkit/blob/master/docs/action-versioning.md#versioning
