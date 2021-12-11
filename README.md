@@ -44,6 +44,19 @@ Remove prefix from released version, like `v1.0.0` -> `1.0.0`.
     without-prefix: true
 ```
 
+### `github-token`
+
+Whether to use a Personal Access Token instead of the default GitHub Token for release
+
+```yaml
+- uses: rlespinasse/release-that@v1.x
+  with:
+    github-token: ${{ secrets.YOUR_PERSONAL_ACCESS_TOKEN }}
+```
+
+By default `${{ github.token }}` is used to make a release.
+[Due to limitation for security concerns][token-security], if you want to build a workflows that react when a new release is made, you must use a Personal Access Token.
+
 ## Under the wood
 
 This is a wrapper around [cycjimmy/semantic-release-action@v2][semantic-release] action with
