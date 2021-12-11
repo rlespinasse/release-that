@@ -44,7 +44,7 @@ Minimal setup to enable semantic release on any repository
 
 This is a wrapper around [cycjimmy/semantic-release-action@v2][semantic-release] action with
 
-- Where the`package.json` file is not mandatory
+- No mandatory configuration like `package.json` or `.releaserc` files
 - Support of [Default branches][default-branches]
   - with the addition of `vN.x` kind of branches
 - Auto-publication of a GitHub release with changelog based on the commit history
