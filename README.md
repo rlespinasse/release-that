@@ -49,5 +49,7 @@ This is a wrapper around [cycjimmy/semantic-release-action@v2][semantic-release]
   - with the addition of `vN.x` kind of branches
 - Auto-publication of a GitHub release with changelog based on the commit history
 
+In a near future, the `release-that` action will support more release system with an opinionated way of doing it.
+
 [semantic-release]: https://github.com/cycjimmy/semantic-release-action
 [default-branches]: https://github.com/cycjimmy/semantic-release-action#branches
