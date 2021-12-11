@@ -22,23 +22,27 @@ Minimal setup to enable semantic release on any repository
 
 - **Step 2:** Enjoy your automatic release system
 
-## Additional inputs
+## Inputs
 
-- **dry-run** : Whether to run semantic release in `dry-run` mode
+### `dry-run`
 
-  ```yaml
-  - uses: rlespinasse/release-that@v1.x
-    with:
-      dry-run: true
-  ```
+Whether to run semantic release in `dry-run` mode
 
-- **without-prefix** : Remove prefix from released version (`v1.0.0` -> `1.0.0`)
+```yaml
+- uses: rlespinasse/release-that@v1.x
+  with:
+    dry-run: true
+```
 
-  ```yaml
-  - uses: rlespinasse/release-that@v1.x
-    with:
-      without-prefix: true
-  ```
+### `without-prefix`
+
+Remove prefix from released version, like `v1.0.0` -> `1.0.0`.
+
+```yaml
+- uses: rlespinasse/release-that@v1.x
+  with:
+    without-prefix: true
+```
 
 ## Under the wood
 
