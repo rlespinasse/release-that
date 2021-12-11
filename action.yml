@@ -14,6 +14,26 @@ inputs:
     description: "GitHub Token as provided by secrets"
     default: ${{ github.token }}
     required: true
+outputs:
+  # useful outputs from semantic-release-action
+  new_release_published:
+    description: 'Whether a new release was published'
+    value: ${{ steps.semantic-release.outputs.new_release_published }}
+  new_release_version:
+    description: 'Version of the new release'
+    value: ${{ steps.semantic-release.outputs.new_release_version }}
+  new_release_major_version:
+    description: 'Major version of the new release'
+    value: ${{ steps.semantic-release.outputs.new_release_major_version }}
+  new_release_minor_version:
+    description: 'Minor version of the new release'
+    value: ${{ steps.semantic-release.outputs.new_release_minor_version }}
+  new_release_patch_version:
+    description: 'Patch version of the new release'
+    value: ${{ steps.semantic-release.outputs.new_release_patch_version }}
+  last_release_version:
+    description: 'Version of the previous release, if there was one.'
+    value: ${{ steps.semantic-release.outputs.last_release_version }}
 branding:
   icon: "package"
   color: "gray-dark"
@@ -28,6 +48,7 @@ runs:
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
         GITHUB_ACTION_PATH: ${{ github.action_path }}
     - name: Semantic Release
+      id: semantic-release
       uses: cycjimmy/semantic-release-action@v2
       with:
         dry_run: ${{ inputs.dry-run }}

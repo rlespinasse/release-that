@@ -57,6 +57,17 @@ Whether to use a Personal Access Token instead of the default GitHub Token for r
 By default `${{ github.token }}` is used to make a release.
 [Due to limitation for security concerns][token-security], if you want to build a workflows that react when a new release is made, you must use a Personal Access Token.
 
+## Outputs
+
+Following outputs are from [cycjimmy/semantic-release-action][semantic-release] (see `Under the wood` section).
+
+- new_release_published
+- new_release_version
+- new_release_major_version
+- new_release_minor_version
+- new_release_patch_version
+- last_release_version
+
 ## Under the wood
 
 This is a wrapper around [cycjimmy/semantic-release-action@v2][semantic-release] action with
