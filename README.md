@@ -2,19 +2,25 @@
 
 > An opinionated GitHub Action to ease the release of a repository using semantic versioning
 
-Just add this content inside `.github/workflows/release-that.yaml` and that all
+Minimal setup to enable semantic release on any repository
 
-```yaml
-name: Release that
-on: [push]
-jobs:
-  release-that:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - uses: rlespinasse/release-that@v1.x
-```
+- **Step 1:** Add the  following content inside `.github/workflows/release-that.yaml` file
+
+  ```yaml
+  name: Release that
+  on: [push]
+  jobs:
+    release-that:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout sources
+          uses: actions/checkout@v2
+
+        - name: Release That
+          uses: rlespinasse/release-that@v1.x
+  ```
+
+- **Step 2:** Enjoy your automatic release system
 
 ## Additional inputs
 
