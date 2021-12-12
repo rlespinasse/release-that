@@ -17,7 +17,7 @@ Minimal setup to enable semantic release on any repository
           uses: actions/checkout@v2
 
         - name: Release That
-          uses: rlespinasse/release-that@v1.x
+          uses: rlespinasse/release-that@v1
   ```
 
 - **Step 2:** Enjoy your automatic release system
@@ -26,30 +26,46 @@ Minimal setup to enable semantic release on any repository
 
 ### `dry-run`
 
-Whether to run semantic release in `dry-run` mode
+Whether to make a release in `dry-run` mode. The outputs act like a release was published.
 
 ```yaml
-- uses: rlespinasse/release-that@v1.x
+- uses: rlespinasse/release-that@v1
   with:
     dry-run: true
 ```
 
 ### `without-prefix`
 
-Remove prefix from released version, like `v1.0.0` -> `1.0.0`.
+Remove prefix from released version, like `v1.0.0` -> `1.0.0` (doesn't apply to major tag)
 
 ```yaml
-- uses: rlespinasse/release-that@v1.x
+- uses: rlespinasse/release-that@v1
   with:
     without-prefix: true
 ```
+
+### `major-tag`
+
+Activate the publication a major tag based on released version. Possible values `true`, `false`, and `auto`.
+If this tag already exists, it will be overwritten.
+
+```yaml
+- uses: rlespinasse/release-that@v1
+  with:
+    major-tag: true
+```
+
+By default, the value is `auto` to activate it (like `true`) on some conditions, otherwise, it's skip (like `false`).
+
+- the repository is a [GitHub action due to metadata file presence][metadata-file] `action.yml` or `action.yaml` (to follow [GitHub action recommandation][action-versionning])
+- _do not hesitate to propose the next condition through issue or pull-request_
 
 ### `github-token`
 
 Whether to use a Personal Access Token instead of the default GitHub Token for release
 
 ```yaml
-- uses: rlespinasse/release-that@v1.x
+- uses: rlespinasse/release-that@v1
   with:
     github-token: ${{ secrets.YOUR_PERSONAL_ACCESS_TOKEN }}
 ```
@@ -59,14 +75,17 @@ By default `${{ github.token }}` is used to make a release.
 
 ## Outputs
 
-Following outputs are from [cycjimmy/semantic-release-action][semantic-release] (see `Under the wood` section).
+- major_tag_published: Whether a major tag was published (`true` or `false`)
+- major_tag: Value of the published major tag, otherwise empty (e.g. `v1`)
 
-- new_release_published
-- new_release_version
-- new_release_major_version
-- new_release_minor_version
-- new_release_patch_version
-- last_release_version
+And the following outputs from [cycjimmy/semantic-release-action][semantic-release] (see `Under the wood` section).
+
+- new_release_published: Whether a new release was published (`true` or `false`)
+- new_release_version: Version of the new release. (e.g. `1.3.0`)
+- new_release_major_version: Major version of the new release. (e.g. `1`)
+- new_release_minor_version: Minor version of the new release. (e.g. `3`)
+- new_release_patch_version: Patch version of the new release. (e.g. `0`)
+- last_release_version: Version of the previous release, if there was one. (e.g. `1.2.0`)
 
 ## Under the wood
 
@@ -81,3 +100,5 @@ In a near future, the `release-that` action will support more release system wit
 
 [semantic-release]: https://github.com/cycjimmy/semantic-release-action
 [default-branches]: https://github.com/cycjimmy/semantic-release-action#branches
+[metadata-file]: https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+[action-versionning]: https://github.com/actions/toolkit/blob/master/docs/action-versioning.md#versioning
