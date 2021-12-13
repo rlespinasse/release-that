@@ -51,12 +51,11 @@ runs:
   using: "composite"
   steps:
     - uses: rlespinasse/github-slug-action@v3.x
-    - run: ${{ github.action_path }}/setup.sh
+    - run: $GITHUB_ACTION_PATH/setup.sh
       shell: bash
       env:
         INPUT_DRYRUN: ${{ inputs.dry-run }}
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
-        GITHUB_ACTION_PATH: ${{ github.action_path }}
     - name: Semantic Release
       id: semantic-release
       uses: cycjimmy/semantic-release-action@v2
@@ -71,7 +70,7 @@ runs:
         GITHUB_TOKEN: ${{ inputs.github-token }}
     - name: Major Tag Publication
       id: major-tag
-      run: ${{ github.action_path }}/major-tag.sh
+      run: $GITHUB_ACTION_PATH/major-tag.sh
       shell: bash
       env:
         INPUT_DRYRUN: ${{ inputs.dry-run }}
