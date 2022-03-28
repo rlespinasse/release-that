@@ -102,3 +102,4 @@ In a near future, the `release-that` action will support more release system wit
 [default-branches]: https://github.com/cycjimmy/semantic-release-action#branches
 [metadata-file]: https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
 [action-versionning]: https://github.com/actions/toolkit/blob/master/docs/action-versioning.md#versioning
+[token-security]: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
