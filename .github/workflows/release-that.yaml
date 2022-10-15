@@ -12,7 +12,7 @@ jobs:
       cancel-in-progress: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # test 1
       - name: Test 'dry-run' input
@@ -54,7 +54,7 @@ jobs:
     concurrency:
       group: release-${{ github.ref }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Release That
         uses: ./

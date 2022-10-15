@@ -58,7 +58,7 @@ runs:
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
     - name: Semantic Release
       id: semantic-release
-      uses: cycjimmy/semantic-release-action@v2
+      uses: cycjimmy/semantic-release-action@v3
       with:
         dry_run: ${{ inputs.dry-run }}
         extra_plugins: |
