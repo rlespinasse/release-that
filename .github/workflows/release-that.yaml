@@ -8,11 +8,11 @@ jobs:
         os: [macos-latest, ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     concurrency:
-      group: os-testing-${{ github.ref }}-${{ github.event_name }}
+      group: os-testing-${{ github.ref }}-${{ github.event_name }}-${{ matrix.os }}
       cancel-in-progress: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # test 1
       - name: Test 'dry-run' input
@@ -54,7 +54,7 @@ jobs:
     concurrency:
       group: release-${{ github.ref }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Release That
         uses: ./
