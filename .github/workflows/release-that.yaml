@@ -8,7 +8,7 @@ jobs:
         os: [macos-latest, ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     concurrency:
-      group: os-testing-${{ github.ref }}-${{ github.event_name }}
+      group: os-testing-${{ github.ref }}-${{ github.event_name }}-${{ matrix.os }}
       cancel-in-progress: true
     steps:
       - name: Checkout
