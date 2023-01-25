@@ -14,7 +14,7 @@ Minimal setup to enable semantic release on any repository
       runs-on: ubuntu-latest
       steps:
         - name: Checkout sources
-          uses: actions/checkout@v2
+          uses: actions/checkout@v3
 
         - name: Release That
           uses: rlespinasse/release-that@v1
