@@ -50,7 +50,7 @@ branding:
 runs:
   using: "composite"
   steps:
-    - uses: rlespinasse/github-slug-action@v3.x
+    - uses: rlespinasse/github-slug-action@v4
     - run: $GITHUB_ACTION_PATH/setup.sh
       shell: bash
       env:
