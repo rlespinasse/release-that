@@ -5,7 +5,7 @@ inputs:
   semantic_version:
     required: true
     # Read https://github.com/cycjimmy/semantic-release-action#semantic_version
-    default: "19.0.5"
+    default: "21.0.3"
     description: 'Specify specifying version range for semantic-release. If no version range is specified, latest version will be used by default'
   dry-run:
     description: "Whether to run semantic release in `dry-run` mode"
@@ -61,9 +61,12 @@ runs:
       env:
         INPUT_DRYRUN: ${{ inputs.dry-run }}
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18'
     - name: Semantic Release
       id: semantic-release
-      uses: cycjimmy/semantic-release-action@v3.4.1
+      uses: cycjimmy/semantic-release-action@v3
       with:
         semantic_version: ${{ inputs.semantic_version }}
         dry_run: ${{ inputs.dry-run }}
