@@ -11,10 +11,6 @@ inputs:
     description: "Whether to run semantic release in `dry-run` mode"
     default: "false"
     required: true
-  dry-run:
-    description: "Whether to run semantic release in `dry-run` mode"
-    default: "false"
-    required: true
   major-tag:
     description: "Whether to publish or update a major tag (e.g. v1)"
     default: "auto"
