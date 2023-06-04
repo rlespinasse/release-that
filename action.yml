@@ -61,6 +61,7 @@ runs:
       env:
         INPUT_DRYRUN: ${{ inputs.dry-run }}
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
+    # Read comments on https://github.com/cycjimmy/semantic-release-action/issues/159
     - uses: actions/setup-node@v3
       with:
         node-version: '14'
