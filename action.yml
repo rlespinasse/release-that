@@ -2,6 +2,11 @@ name: "Release That"
 description: "Opinionated GitHub Action to ease the release of a repository"
 author: "Romain Lespinasse"
 inputs:
+  semantic_version:
+    required: true
+    # Read https://github.com/cycjimmy/semantic-release-action#semantic_version
+    default: "19.0.5"
+    description: 'Specify specifying version range for semantic-release. If no version range is specified, latest version will be used by default'
   dry-run:
     description: "Whether to run semantic release in `dry-run` mode"
     default: "false"
@@ -56,10 +61,15 @@ runs:
       env:
         INPUT_DRYRUN: ${{ inputs.dry-run }}
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
+    # Read comments on https://github.com/cycjimmy/semantic-release-action/issues/159
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '14'
     - name: Semantic Release
       id: semantic-release
       uses: cycjimmy/semantic-release-action@v3
       with:
+        semantic_version: ${{ inputs.semantic_version }}
         dry_run: ${{ inputs.dry-run }}
         extra_plugins: |
           @semantic-release/commit-analyzer
