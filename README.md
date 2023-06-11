@@ -89,7 +89,7 @@ And the following outputs from [cycjimmy/semantic-release-action][semantic-relea
 
 ## Under the wood
 
-This is a wrapper around [cycjimmy/semantic-release-action@v2][semantic-release] action with
+This is a wrapper around [cycjimmy/semantic-release-action@v3][semantic-release] action with
 
 - No mandatory configuration like `package.json` or `.releaserc` files
 - Support of [Default branches][default-branches]
