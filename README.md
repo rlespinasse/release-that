@@ -12,6 +12,11 @@ Minimal setup to enable semantic release on any repository
   jobs:
     release-that:
       runs-on: ubuntu-latest
+      permissions:
+        id-token: write
+        contents: write
+        issues: write
+        pull-requests: write
       steps:
         - name: Checkout sources
           uses: actions/checkout@v3
@@ -73,6 +78,10 @@ Whether to use a Personal Access Token instead of the default GitHub Token for r
 By default `${{ github.token }}` is used to make a release.
 [Due to limitation for security concerns][token-security], if you want to build a workflows that react when a new release is made, you must use a Personal Access Token.
 
+On [repositories created][token-change] before `2023-02-02`, the default token was enough to let this action do its job.
+Now, new repository will always need to setup `permissions` to work properly.
+Please refer to **setup** documentation.
+
 ## Outputs
 
 - major_tag_published: Whether a major tag was published (`true` or `false`)
@@ -103,3 +112,4 @@ In a near future, the `release-that` action will support more release system wit
 [metadata-file]: https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
 [action-versionning]: https://github.com/actions/toolkit/blob/master/docs/action-versioning.md#versioning
 [token-security]: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
+[token-change]: https://github.blog/changelog/2023-02-02-github-actions-updating-the-default-github_token-permissions-to-read-only/
