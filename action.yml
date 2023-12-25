@@ -62,12 +62,12 @@ runs:
         INPUT_DRYRUN: ${{ inputs.dry-run }}
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
     # Read comments on https://github.com/cycjimmy/semantic-release-action/issues/159
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
         node-version: '14'
     - name: Semantic Release
       id: semantic-release
-      uses: cycjimmy/semantic-release-action@v3
+      uses: cycjimmy/semantic-release-action@v4
       with:
         semantic_version: ${{ inputs.semantic_version }}
         dry_run: ${{ inputs.dry-run }}
