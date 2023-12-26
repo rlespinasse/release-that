@@ -1,59 +1,59 @@
-name: "Release That"
-description: "Opinionated GitHub Action to ease the release of a repository"
-author: "Romain Lespinasse"
+name: 'Release That'
+description: 'Opinionated GitHub Action to ease the release of a repository'
+author: 'Romain Lespinasse'
 inputs:
   semantic_version:
     required: true
     # Read https://github.com/cycjimmy/semantic-release-action#semantic_version
-    default: "19.0.5"
+    default: ''
     description: 'Specify specifying version range for semantic-release. If no version range is specified, latest version will be used by default'
   dry-run:
-    description: "Whether to run semantic release in `dry-run` mode"
-    default: "false"
+    description: 'Whether to run semantic release in `dry-run` mode'
+    default: 'false'
     required: true
   major-tag:
-    description: "Whether to publish or update a major tag (e.g. v1)"
-    default: "auto"
+    description: 'Whether to publish or update a major tag (e.g. v1)'
+    default: 'auto'
     required: true
   without-prefix:
-    description: "Remove prefix from released version"
-    default: "false"
+    description: 'Remove prefix from released version'
+    default: 'false'
     required: true
   github-token:
-    description: "GitHub Token as provided by secrets"
+    description: 'GitHub Token as provided by secrets'
     default: ${{ github.token }}
     required: true
 outputs:
   # useful outputs from semantic-release-action
   new_release_published:
-    description: "Whether a new release was published"
+    description: 'Whether a new release was published'
     value: ${{ steps.semantic-release.outputs.new_release_published }}
   new_release_version:
-    description: "Version of the new release"
+    description: 'Version of the new release'
     value: ${{ steps.semantic-release.outputs.new_release_version }}
   new_release_major_version:
-    description: "Major version of the new release"
+    description: 'Major version of the new release'
     value: ${{ steps.semantic-release.outputs.new_release_major_version }}
   new_release_minor_version:
-    description: "Minor version of the new release"
+    description: 'Minor version of the new release'
     value: ${{ steps.semantic-release.outputs.new_release_minor_version }}
   new_release_patch_version:
-    description: "Patch version of the new release"
+    description: 'Patch version of the new release'
     value: ${{ steps.semantic-release.outputs.new_release_patch_version }}
   last_release_version:
-    description: "Version of the previous release, if there was one."
+    description: 'Version of the previous release, if there was one.'
     value: ${{ steps.semantic-release.outputs.last_release_version }}
   major_tag_published:
-    description: "Whether a major tag was published"
+    description: 'Whether a major tag was published'
     value: ${{ steps.major-tag.outputs.major_tag_published }}
   major_tag:
-    description: "Value of the published major tag, otherwise empty"
+    description: 'Value of the published major tag, otherwise empty'
     value: ${{ steps.major-tag.outputs.major_tag }}
 branding:
-  icon: "package"
-  color: "gray-dark"
+  icon: 'package'
+  color: 'gray-dark'
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - uses: rlespinasse/github-slug-action@v4
     - run: $GITHUB_ACTION_PATH/setup.sh
@@ -61,10 +61,6 @@ runs:
       env:
         INPUT_DRYRUN: ${{ inputs.dry-run }}
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
-    # Read comments on https://github.com/cycjimmy/semantic-release-action/issues/159
-    - uses: actions/setup-node@v4
-      with:
-        node-version: '14'
     - name: Semantic Release
       id: semantic-release
       uses: cycjimmy/semantic-release-action@v4
