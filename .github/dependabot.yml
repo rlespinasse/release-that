@@ -1,16 +1,13 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directory: "/.github/"
     schedule:
       interval: "weekly"
     groups:
       dependencies:
         patterns:
-            - "*" 
-        exclude-patterns:
-          - "rlespinasse/github-slug-action"
-          - "cycjimmy/semantic-release-action"
+            - "*"
     reviewers:
       - "rlespinasse"
     labels: [ ]
