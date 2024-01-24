@@ -58,3 +58,5 @@ jobs:
 
       - name: Release That
         uses: ./
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
