@@ -84,17 +84,17 @@ Please refer to **setup** documentation.
 
 ## Outputs
 
-- major_tag_published: Whether a major tag was published (`true` or `false`)
-- major_tag: Value of the published major tag, otherwise empty (e.g. `v1`)
+- **major_tag_published**: Whether a major tag was published (`true` or `false`)
+- **major_tag**: Value of the published major tag, otherwise empty (e.g. `v1`)
 
 And the following outputs from [cycjimmy/semantic-release-action][semantic-release] (see `Under the wood` section).
 
-- new_release_published: Whether a new release was published (`true` or `false`)
-- new_release_version: Version of the new release. (e.g. `1.3.0`)
-- new_release_major_version: Major version of the new release. (e.g. `1`)
-- new_release_minor_version: Minor version of the new release. (e.g. `3`)
-- new_release_patch_version: Patch version of the new release. (e.g. `0`)
-- last_release_version: Version of the previous release, if there was one. (e.g. `1.2.0`)
+- **new_release_published**: Whether a new release was published (`true` or `false`)
+- **new_release_version**: Version of the new release. (e.g. `1.3.0`)
+- **new_release_major_version**: Major version of the new release. (e.g. `1`)
+- **new_release_minor_version**: Minor version of the new release. (e.g. `3`)
+- **new_release_patch_version**: Patch version of the new release. (e.g. `0`)
+- **last_release_version**: Version of the previous release, if there was one. (e.g. `1.2.0`)
 
 ## Under the wood
 
