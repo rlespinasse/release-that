@@ -56,6 +56,21 @@ jobs:
           major-tag: auto
           github-token: ${{ secrets.GH_TOKEN }}
 
+      # test 6
+      - name: Test 'working-directory=.github' input
+        uses: ./
+        with:
+          dry-run: true
+          working-directory: .github
+
+      # test 7
+      - name: Test 'working-directory=.github,git-tag-prefix=gh' input
+        uses: ./
+        with:
+          dry-run: true
+          working-directory: .github
+          git-tag-prefix: gh
+
   release:
     runs-on: ubuntu-latest
     needs: os-testing
