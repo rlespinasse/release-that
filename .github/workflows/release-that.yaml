@@ -1,5 +1,6 @@
 name: Release that
 on: [push, pull_request]
+permissions: read-all
 jobs:
   os-testing:
     strategy:
@@ -13,12 +14,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       # test 1
       - name: Test 'dry-run' input
         uses: ./
         with:
           dry-run: true
+          github-token: ${{ secrets.GH_TOKEN }}
 
       # test 2
       - name: Test 'without-prefix' input
@@ -26,6 +30,7 @@ jobs:
         with:
           dry-run: true
           without-prefix: true
+          github-token: ${{ secrets.GH_TOKEN }}
 
       # test 3
       - name: Test 'major-tag=true' input
@@ -33,6 +38,7 @@ jobs:
         with:
           dry-run: true
           major-tag: true
+          github-token: ${{ secrets.GH_TOKEN }}
 
       # test 4
       - name: Test 'major-tag=false' input
@@ -40,6 +46,7 @@ jobs:
         with:
           dry-run: true
           major-tag: false
+          github-token: ${{ secrets.GH_TOKEN }}
 
       # test 5
       - name: Test 'major-tag=auto' input
@@ -47,14 +54,22 @@ jobs:
         with:
           dry-run: true
           major-tag: auto
+          github-token: ${{ secrets.GH_TOKEN }}
 
   release:
     runs-on: ubuntu-latest
     needs: os-testing
+    permissions:
+      contents: write
+      issues: write
+      id-token: write
+      packages: write
     concurrency:
       group: release-${{ github.ref }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Release That
         uses: ./
