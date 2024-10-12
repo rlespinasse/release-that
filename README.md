@@ -19,7 +19,7 @@ Minimal setup to enable semantic release on any repository
         pull-requests: write
       steps:
         - name: Checkout sources
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
 
         - name: Release That
           uses: rlespinasse/release-that@v1
@@ -81,6 +81,16 @@ By default `${{ github.token }}` is used to make a release.
 On [repositories created][token-change] before `2023-02-02`, the default token was enough to let this action do its job.
 Now, new repository will always need to setup `permissions` to work properly.
 Please refer to **setup** documentation.
+
+> [!TIP]
+> If you get a error on your workflow run about `EGITNOPERMISSION Cannot push to the Git repository.`, you can add `persist-credentials: false` to fix it
+> 
+> ```yaml
+> - name: Checkout sources
+>   uses: actions/checkout@v4
+>   with:
+>     persist-credentials: false
+> ```
 
 ## Outputs
 
