@@ -4,7 +4,7 @@
 
 Minimal setup to enable semantic release on any repository
 
-- **Step 1:** Add the  following content inside `.github/workflows/release-that.yaml` file
+- **Step 1:** Add the following content inside `.github/workflows/release-that.yaml` file
 
   ```yaml
   name: Release that
