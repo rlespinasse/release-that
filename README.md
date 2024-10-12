@@ -62,7 +62,7 @@ If this tag already exists, it will be overwritten.
 
 By default, the value is `auto` to activate it (like `true`) on some conditions, otherwise, it's skip (like `false`).
 
-- the repository is a [GitHub action due to metadata file presence][metadata-file] `action.yml` or `action.yaml` (to follow [GitHub action recommandation][action-versionning])
+- the repository is a [GitHub Action due to metadata file presence][metadata-file] `action.yml` or `action.yaml` (to follow [GitHub Action recommandation][action-versionning])
 - _do not hesitate to propose the next condition through issue or pull-request_
 
 ### `github-token`
@@ -84,7 +84,7 @@ Please refer to **setup** documentation.
 
 > [!TIP]
 > If you get a error on your workflow run about `EGITNOPERMISSION Cannot push to the Git repository.`, you can add `persist-credentials: false` to fix it
-> 
+>
 > ```yaml
 > - name: Checkout sources
 >   uses: actions/checkout@v4
