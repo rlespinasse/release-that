@@ -10,7 +10,7 @@ jobs:
     name: Lint Code Base
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: read
       statuses: write
     steps:
