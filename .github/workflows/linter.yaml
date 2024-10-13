@@ -34,3 +34,4 @@ jobs:
           git diff
           git diff --staged
         shell: bash
+        if: ${{ always() }}
