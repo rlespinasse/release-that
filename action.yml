@@ -1,12 +1,16 @@
+---
 name: 'Release That'
 description: 'Opinionated GitHub Action to ease the release of a repository'
 author: 'Romain Lespinasse'
 inputs:
   semantic_version:
     required: true
-    # Read https://github.com/cycjimmy/semantic-release-action#semantic_version
+    # Read
+    # https://github.com/cycjimmy/semantic-release-action#semantic_version
     default: ''
-    description: 'Specify specifying version range for semantic-release. If no version range is specified, latest version will be used by default'
+    description: |
+      Specify specifying version range for semantic-release.
+      If no version range is specified, latest version will be used by default'
   dry-run:
     description: 'Whether to run semantic release in `dry-run` mode'
     default: 'false'
@@ -84,6 +88,9 @@ runs:
         INPUT_MAJORTAG: ${{ inputs.major-tag }}
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
         INPUT_GITHUB_TOKEN: ${{ inputs.github-token }}
-        NEW_RELEASE_PUBLISHED: ${{ steps.semantic-release.outputs.new_release_published }}
-        NEW_RELEASE_VERSION: ${{ steps.semantic-release.outputs.new_release_version }}
-        NEW_RELEASE_MAJOR_VERSION: ${{ steps.semantic-release.outputs.new_release_major_version }}
+        NEW_RELEASE_PUBLISHED: |
+          ${{ steps.semantic-release.outputs.new_release_published }}
+        NEW_RELEASE_VERSION: |
+          ${{ steps.semantic-release.outputs.new_release_version }}
+        NEW_RELEASE_MAJOR_VERSION: |
+          ${{ steps.semantic-release.outputs.new_release_major_version }}
