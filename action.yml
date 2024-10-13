@@ -67,6 +67,7 @@ runs:
       with:
         semantic_version: ${{ inputs.semantic_version }}
         dry_run: ${{ inputs.dry-run }}
+        ci: true
         extra_plugins: |
           @semantic-release/commit-analyzer
           @semantic-release/release-notes-generator
