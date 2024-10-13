@@ -4,7 +4,7 @@
 
 Minimal setup to enable semantic release on any repository
 
-- **Step 1:** Add the  following content inside `.github/workflows/release-that.yaml` file
+- **Step 1:** Add the following content inside `.github/workflows/release-that.yaml` file
 
   ```yaml
   name: Release that
@@ -19,7 +19,7 @@ Minimal setup to enable semantic release on any repository
         pull-requests: write
       steps:
         - name: Checkout sources
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
 
         - name: Release That
           uses: rlespinasse/release-that@v1
@@ -62,7 +62,7 @@ If this tag already exists, it will be overwritten.
 
 By default, the value is `auto` to activate it (like `true`) on some conditions, otherwise, it's skip (like `false`).
 
-- the repository is a [GitHub action due to metadata file presence][metadata-file] `action.yml` or `action.yaml` (to follow [GitHub action recommandation][action-versionning])
+- the repository is a [GitHub Action due to metadata file presence][metadata-file] `action.yml` or `action.yaml` (to follow [GitHub Action recommandation][action-versionning])
 - _do not hesitate to propose the next condition through issue or pull-request_
 
 ### `github-token`
@@ -81,6 +81,16 @@ By default `${{ github.token }}` is used to make a release.
 On [repositories created][token-change] before `2023-02-02`, the default token was enough to let this action do its job.
 Now, new repository will always need to setup `permissions` to work properly.
 Please refer to **setup** documentation.
+
+> [!TIP]
+> If you get a error on your workflow run about `EGITNOPERMISSION Cannot push to the Git repository.`, you can add `persist-credentials: false` to fix it
+>
+> ```yaml
+> - name: Checkout sources
+>   uses: actions/checkout@v4
+>   with:
+>     persist-credentials: false
+> ```
 
 ## Outputs
 
