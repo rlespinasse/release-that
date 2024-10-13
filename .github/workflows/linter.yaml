@@ -27,3 +27,10 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: v1.x
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Display automatically fixed codebase
+        run: |
+          git status
+          git diff
+          git diff --staged
+        shell: bash
