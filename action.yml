@@ -60,6 +60,9 @@ branding:
 runs:
   using: 'composite'
   steps:
+    # Setup steps
+    - run: echo "::group::Setup for release that"
+      shell: bash
     - uses: rlespinasse/github-slug-action@v4
     - name: wd-tag
       uses: rlespinasse/slugify-value@v1
@@ -68,7 +71,6 @@ runs:
         value: ${{ inputs.working-directory }}
         slug-maxlength: '255' # Linux limit
         publish-env: false
-
     - run: $GITHUB_ACTION_PATH/setup.sh
       shell: bash
       env:
@@ -76,6 +78,10 @@ runs:
         INPUT_WORKINGDIRECTORY: ${{ inputs.working-directory }}
         INPUT_WORKINGDIRECTORYSLUG: ${{ steps.wd-tag.outputs.slug }}
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
+    - run: echo "::endgroup::"
+      shell: bash
+
+    # Main step
     - name: Semantic Release
       id: semantic-release
       uses: cycjimmy/semantic-release-action@v4
@@ -91,8 +97,11 @@ runs:
           @semantic-release/github
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
-    - name: Major Tag Publication
-      id: major-tag
+
+    # Major tag steps
+    - run: echo "::group::Major Tag Publication"
+      shell: bash
+    - id: major-tag
       run: $GITHUB_ACTION_PATH/major-tag.sh
       shell: bash
       env:
@@ -103,3 +112,5 @@ runs:
         NEW_RELEASE_VERSION: ${{ steps.semantic-release.outputs.new_release_version }}
         NEW_RELEASE_GIT_TAG: ${{ steps.semantic-release.outputs.new_release_git_tag }}
         NEW_RELEASE_MAJOR_VERSION: ${{ steps.semantic-release.outputs.new_release_major_version }}
+    - run: echo "::endgroup::"
+      shell: bash
