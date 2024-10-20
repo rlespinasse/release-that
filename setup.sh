@@ -27,7 +27,7 @@ fi
 if [ -n "$INPUT_WORKINGDIRECTORY" ]; then
   echo "+ Setup prefix from released version using working-directory input"
   # shellcheck disable=SC2094
-  cat <<<"$(jq '.release += {tagFormat: "${INPUT_WORKINGDIRECTORY_SLUG}@${version}"}' "$CONFIG_PATH/package.json")" >"$CONFIG_PATH/package.json"
+  cat <<<"$(jq '.release += {tagFormat: "'"${INPUT_WORKINGDIRECTORYSLUG}"'@${version}"}' "$CONFIG_PATH/package.json")" >"$CONFIG_PATH/package.json"
 elif [ "${INPUT_WITHOUTPREFIX}" == "true" ]; then
   echo "+ Remove prefix from released version"
   # shellcheck disable=SC2094
