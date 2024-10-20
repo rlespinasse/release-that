@@ -30,6 +30,9 @@ cat <<EOF >"$PACKAGE_CONFIG_PATH/package.json"
   "description": "",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "release": {
     "tagFormat": "${TAG_FORMAT}"
   }
