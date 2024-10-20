@@ -70,6 +70,7 @@ runs:
         key: WORKING_DIRECTORY
         value: ${{ inputs.working-directory }}
     - name: Do preflight to release that
+      id: preflight
       run: $GITHUB_ACTION_PATH/setup.sh
       shell: bash
       env:
@@ -93,7 +94,7 @@ runs:
           @semantic-release/git
           @semantic-release/github
         extends: |
-          semantic-release-monorepo
+          ${{ steps.preflight.outputs.extends-config }}
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
 

@@ -59,18 +59,16 @@ Only changes inside the working directory will trigger the version generation.
 
 If `backend` and `frontend` folder already have a `1.0.0` release each, then
 
-| Changes                              | New version tag(s)            |
-| ------------------------------------ | ----------------------------- |
-| feat in `backend`                    | backend@1.1.0                 |
-| fix in `frontend`                    | frontend@1.0.1                |
-| fix in `backend`, feat in `frontend` | backend@1.0.1, frontend@1.1.0 |
+| Changes                              | New version tag(s)              |
+| ------------------------------------ | ------------------------------- |
+| feat in `backend`                    | backend-v1.1.0                  |
+| fix in `frontend`                    | frontend-v1.0.1                 |
+| fix in `backend`, feat in `frontend` | backend-v1.0.1, frontend-v1.1.0 |
 
 ### `without-prefix`
 
 > [!WARNING]
->
-> - This input is not applied when `working-directory` input is used.
-> - This input behavior is not applied on the **major tag** generation when `major-tag` input is active.
+> This input behavior is not applied on the **major tag** generation when `major-tag` input is active.
 
 Remove prefix from released version, like `v1.0.0` -> `1.0.0` (doesn't apply to major tag)
 

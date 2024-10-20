@@ -7,6 +7,7 @@ fi
 CONFIG_PATH=.
 if [ -n "$INPUT_WORKINGDIRECTORY" ]; then
   CONFIG_PATH="$INPUT_WORKINGDIRECTORY"
+  echo "extends-config=semantic-release-monorepo" >>"$GITHUB_OUTPUT"
 fi
 
 echo "+ Create package.json file"
@@ -26,8 +27,13 @@ fi
 
 if [ -n "$INPUT_WORKINGDIRECTORY" ]; then
   echo "+ Setup prefix from released version using working-directory input"
-  # shellcheck disable=SC2094
-  cat <<<"$(jq '.release += {tagFormat: "'"${INPUT_WORKINGDIRECTORYSLUG}"'@${version}"}' "$CONFIG_PATH/package.json")" >"$CONFIG_PATH/package.json"
+  if [ "${INPUT_WITHOUTPREFIX}" == "true" ]; then
+    # shellcheck disable=SC2094
+    cat <<<"$(jq '.release += {tagFormat: "'"${INPUT_WORKINGDIRECTORYSLUG}"'-${version}"}' "$CONFIG_PATH/package.json")" >"$CONFIG_PATH/package.json"
+  else
+    # shellcheck disable=SC2094
+    cat <<<"$(jq '.release += {tagFormat: "'"${INPUT_WORKINGDIRECTORYSLUG}"'-v${version}"}' "$CONFIG_PATH/package.json")" >"$CONFIG_PATH/package.json"
+  fi
 elif [ "${INPUT_WITHOUTPREFIX}" == "true" ]; then
   echo "+ Remove prefix from released version"
   # shellcheck disable=SC2094
