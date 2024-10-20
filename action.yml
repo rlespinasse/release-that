@@ -61,17 +61,8 @@ runs:
   using: 'composite'
   steps:
     # Setup steps
-    - name: Prepare current branch data
-      id: current-branch
-      uses: rlespinasse/slugify-value@v1
-      with:
-        # Extract from https://github.com/rlespinasse/github-slug-action/blob/v4.x/action.yml
-        key: GITHUB_REF_NAME
-        value: ${{ env.GITHUB_HEAD_REF_RAW || env.GITHUB_REF_NAME_RAW }}
-        publish-env: false
-      env:
-        GITHUB_HEAD_REF_RAW: ${{ github.head_ref }}
-        GITHUB_REF_NAME_RAW: ${{ github.ref_name }}
+    - name: Enhance GitHub context
+      uses: rlespinasse/github-slug-action@v4
     - name: Prepare working directory slug data
       id: working-directory-slug
       uses: rlespinasse/slugify-value@v1
@@ -83,7 +74,6 @@ runs:
       shell: bash
       env:
         INPUT_DRYRUN: ${{ inputs.dry-run }}
-        INPUT_GITHUB_REF_NAME: ${{ steps.current-branch.outputs.value }}
         INPUT_WORKINGDIRECTORY: ${{ inputs.working-directory }}
         INPUT_WORKINGDIRECTORYSLUG: ${{ steps.working-directory-slug.outputs.slug }}
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
