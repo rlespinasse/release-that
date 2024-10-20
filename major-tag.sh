@@ -3,7 +3,7 @@
 if [ "${INPUT_MAJORTAG}" == "false" ]; then
   echo "Major Tag publication disabled, skipping it."
   if [ -f "$GITHUB_OUTPUT" ]; then
-    echo "major_tag_published=false" >> "$GITHUB_OUTPUT"
+    echo "major_tag_published=false" >>"$GITHUB_OUTPUT"
   else
     echo "::set-output name=major_tag_published::false"
   fi
@@ -13,7 +13,7 @@ fi
 if [ "${NEW_RELEASE_PUBLISHED}" == "false" ]; then
   echo "No new release published, skipping major tag publication."
   if [ -f "$GITHUB_OUTPUT" ]; then
-    echo "major_tag_published=false" >> "$GITHUB_OUTPUT"
+    echo "major_tag_published=false" >>"$GITHUB_OUTPUT"
   else
     echo "::set-output name=major_tag_published::false"
   fi
@@ -27,7 +27,7 @@ if [ "${INPUT_MAJORTAG}" == "auto" ]; then
   else
     echo "No conditions met, skipping major tag publication."
     if [ -f "$GITHUB_OUTPUT" ]; then
-      echo "major_tag_published=false" >> "$GITHUB_OUTPUT"
+      echo "major_tag_published=false" >>"$GITHUB_OUTPUT"
     else
       echo "::set-output name=major_tag_published::false"
     fi
@@ -35,23 +35,17 @@ if [ "${INPUT_MAJORTAG}" == "auto" ]; then
   fi
 fi
 
-tag_name="v${NEW_RELEASE_VERSION}"
-if [ "${INPUT_WITHOUTPREFIX}" == "true" ]; then
-  tag_name="${NEW_RELEASE_VERSION}"
-fi
-
-echo "Publication of v${NEW_RELEASE_MAJOR_VERSION} based on ${tag_name}"
+echo "Publication of v${NEW_RELEASE_MAJOR_VERSION} based on ${NEW_RELEASE_GIT_TAG}"
 if [ -f "$GITHUB_OUTPUT" ]; then
-  echo "major_tag=v${NEW_RELEASE_MAJOR_VERSION}" >> "$GITHUB_OUTPUT"
+  echo "major_tag=v${NEW_RELEASE_MAJOR_VERSION}" >>"$GITHUB_OUTPUT"
 else
   echo "::set-output name=major_tag::v${NEW_RELEASE_MAJOR_VERSION}"
 fi
 
-
 if [ "${INPUT_DRYRUN}" == "false" ]; then
-  git push origin "${tag_name}:v${NEW_RELEASE_MAJOR_VERSION}" --force || {
+  git push origin "${NEW_RELEASE_GIT_TAG}:v${NEW_RELEASE_MAJOR_VERSION}" --force || {
     if [ -f "$GITHUB_OUTPUT" ]; then
-      echo "major_tag_published=false" >> "$GITHUB_OUTPUT"
+      echo "major_tag_published=false" >>"$GITHUB_OUTPUT"
     else
       echo "::set-output name=major_tag_published::false"
     fi
@@ -60,7 +54,7 @@ if [ "${INPUT_DRYRUN}" == "false" ]; then
 fi
 
 if [ -f "$GITHUB_OUTPUT" ]; then
-  echo "major_tag_published=true" >> "$GITHUB_OUTPUT"
+  echo "major_tag_published=true" >>"$GITHUB_OUTPUT"
 else
   echo "::set-output name=major_tag_published::true"
 fi
