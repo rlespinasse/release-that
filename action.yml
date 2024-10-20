@@ -61,25 +61,24 @@ runs:
   using: 'composite'
   steps:
     # Setup steps
-    - run: echo "::group::Setup for release that"
-      shell: bash
-    - uses: rlespinasse/github-slug-action@v4
-    - name: wd-tag
+    - name: Enhance GitHub environment variables context
+      uses: rlespinasse/github-slug-action@v4
+    - name: Prepare working directory slug as tag prefix
+      id: wd-tag
       uses: rlespinasse/slugify-value@v1
       with:
         key: WORKING_DIRECTORY
         value: ${{ inputs.working-directory }}
         slug-maxlength: '255' # Linux limit
         publish-env: false
-    - run: $GITHUB_ACTION_PATH/setup.sh
+    - name: Release that preflight
+      run: $GITHUB_ACTION_PATH/setup.sh
       shell: bash
       env:
         INPUT_DRYRUN: ${{ inputs.dry-run }}
         INPUT_WORKINGDIRECTORY: ${{ inputs.working-directory }}
         INPUT_WORKINGDIRECTORYSLUG: ${{ steps.wd-tag.outputs.slug }}
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
-    - run: echo "::endgroup::"
-      shell: bash
 
     # Main step
     - name: Semantic Release
@@ -99,9 +98,8 @@ runs:
         GITHUB_TOKEN: ${{ inputs.github-token }}
 
     # Major tag steps
-    - run: echo "::group::Major Tag Publication"
-      shell: bash
-    - id: major-tag
+    - name: Major Tag Publication
+      id: major-tag
       run: $GITHUB_ACTION_PATH/major-tag.sh
       shell: bash
       env:
@@ -112,5 +110,3 @@ runs:
         NEW_RELEASE_VERSION: ${{ steps.semantic-release.outputs.new_release_version }}
         NEW_RELEASE_GIT_TAG: ${{ steps.semantic-release.outputs.new_release_git_tag }}
         NEW_RELEASE_MAJOR_VERSION: ${{ steps.semantic-release.outputs.new_release_major_version }}
-    - run: echo "::endgroup::"
-      shell: bash
