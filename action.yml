@@ -65,6 +65,7 @@ runs:
       shell: bash
       env:
         INPUT_DRYRUN: ${{ inputs.dry-run }}
+        INPUT_WORKINGDIRECTORY: ${{ inputs.working-directory }}
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
     - name: Semantic Release
       id: semantic-release
