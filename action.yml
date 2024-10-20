@@ -74,7 +74,7 @@ runs:
       env:
         INPUT_DRYRUN: ${{ inputs.dry-run }}
         INPUT_WORKINGDIRECTORY: ${{ inputs.working-directory }}
-        INPUT_WORKINGDIRECTORY_SLUG: ${{ steps.wd-tag.outputs.slug }}
+        INPUT_WORKINGDIRECTORYSLUG: ${{ steps.wd-tag.outputs.slug }}
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
     - name: Semantic Release
       id: semantic-release
