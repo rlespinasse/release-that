@@ -7,6 +7,11 @@ inputs:
     # Read https://github.com/cycjimmy/semantic-release-action#semantic_version
     default: ''
     description: 'Specify specifying version range for semantic-release. If no version range is specified, latest version will be used by default'
+  working-directory:
+    required: true
+    # Read https://github.com/cycjimmy/semantic-release-action#working_directory
+    default: ''
+    description: 'Specify another working directory for semantic release. Default one is provided by github.'
   dry-run:
     description: 'Whether to run semantic release in `dry-run` mode'
     default: 'false'
@@ -66,6 +71,7 @@ runs:
       uses: cycjimmy/semantic-release-action@v4
       with:
         semantic_version: ${{ inputs.semantic_version }}
+        working_directory: ${{ inputs.working-directory }}
         dry_run: ${{ inputs.dry-run }}
         ci: true
         extra_plugins: |
