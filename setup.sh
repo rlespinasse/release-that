@@ -17,7 +17,7 @@ cat <<<"$(jq --arg name "${GITHUB_REPOSITORY_NAME_PART}" '. += {name: $name}' "$
 if [ "${INPUT_DRYRUN}" == "true" ]; then
   echo "+ Setup current branch as releasable (dry-run mode)"
   # shellcheck disable=SC2094
-  cat <<<"$(jq --arg branch "${GITHUB_REF_NAME}" '.release += {branches: [$branch]}' "$CONFIG_PATH/package.json")" >"$CONFIG_PATH/package.json"
+  cat <<<"$(jq --arg branch "${INPUT_GITHUB_REF_NAME}" '.release += {branches: [$branch]}' "$CONFIG_PATH/package.json")" >"$CONFIG_PATH/package.json"
 else
   echo "+ Setup releasable branches"
   # shellcheck disable=SC2094
