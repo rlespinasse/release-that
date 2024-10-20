@@ -92,6 +92,8 @@ runs:
           @semantic-release/release-notes-generator
           @semantic-release/git
           @semantic-release/github
+        extends: |
+          semantic-release-monorepo
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
 
