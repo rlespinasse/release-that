@@ -56,6 +56,8 @@ runs:
   using: 'composite'
   steps:
     - uses: rlespinasse/github-slug-action@v4
+      with:
+        prefix: RT_
     - run: $GITHUB_ACTION_PATH/setup.sh
       shell: bash
       env:
