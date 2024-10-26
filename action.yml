@@ -63,6 +63,8 @@ runs:
       env:
         INPUT_DRYRUN: ${{ inputs.dry-run }}
         INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
+        REPOSITORY_NAME: ${{ env.RT_GITHUB_REPOSITORY_NAME_PART }}
+        REF_POINT: ${{ env.RT_GITHUB_REF_NAME }}
     - name: Semantic Release
       id: semantic-release
       uses: cycjimmy/semantic-release-action@v4
