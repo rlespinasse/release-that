@@ -1,33 +1,22 @@
-# How to contribute to Release That
+# Security Policy
 
-## Did you find a bug
+## Supported Versions and Branches
 
-* **Do not open up a GitHub issue if the bug is a security vulnerability**, and instead to refer to our [security policy][1].
+| Version | Supported          | End of Support | Branch | Specific Tags |
+| ------- | ------------------ | -------------- | ------ | ------------- |
+| 1.x     | :white_check_mark: |                | v1.x   | v1            |
 
-* **Ensure the bug was not already reported** by searching on GitHub under [Issues][2].
+A GitHub repository can use one of the available branches as an action inside its workflows.
 
-* If you're unable to find an open issue addressing the problem, [open a 'Bug' issue][4].
-Be sure to include a **title and clear description**, as much relevant information as possible, and a **code sample** or an **executable test case** demonstrating the expected behavior that is not occurring.
+### End of Life of a branch
 
-## Did you write a patch that fixes a bug
+Since `2024-10-26`, when a new major version is released,
 
-* Open a new GitHub pull request with the patch.
+- The previous one will continue to receive security patches for 3 months,
+- After the 3 months, the branch is deleted, and only the tags remain.
 
-* Ensure the PR description clearly describes the problem and solution.
-Include the relevant issue number if applicable.
+## Reporting a Vulnerability
 
-## Do you intend to add a new feature or change an existing one
+In this project, you can report a Vulnerability by creating a [draft security advisory](https://github.com/rlespinasse/release-that/security/advisories).
 
-* Suggest your change by [opening a 'Feature request' issue][5]
-
-## Do you have questions about the source code
-
-* [open an issue][3] with your question.
-
-Thanks!
-
-[1]: https://github.com/rlespinasse/release-that/security/policy
-[2]: https://github.com/rlespinasse/release-that/issues
-[3]: https://github.com/rlespinasse/release-that/issues/new
-[4]: https://github.com/rlespinasse/release-that/issues/new?assignees=&labels=bug&template=bug_report.md&title=
-[5]: https://github.com/rlespinasse/release-that/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=
+If the vulnerability is confirmed, a fix will be produced and the advisory will be published.
