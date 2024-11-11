@@ -55,7 +55,7 @@ branding:
 runs:
   using: 'composite'
   steps:
-    - uses: rlespinasse/github-slug-action@v4
+    - uses: rlespinasse/github-slug-action@v5
       with:
         prefix: RT_
     - run: $GITHUB_ACTION_PATH/setup.sh
