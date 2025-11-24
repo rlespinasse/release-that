@@ -67,7 +67,7 @@ runs:
         REF_POINT: ${{ env.RT_GITHUB_REF_NAME }}
     - name: Semantic Release
       id: semantic-release
-      uses: cycjimmy/semantic-release-action@v5
+      uses: cycjimmy/semantic-release-action@v6
       with:
         semantic_version: ${{ inputs.semantic_version }}
         dry_run: ${{ inputs.dry-run }}
