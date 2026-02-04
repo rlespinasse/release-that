@@ -39,7 +39,36 @@ Whether to make a release in `dry-run` mode. The outputs act like a release was 
     dry-run: true
 ```
 
+### `working-directory`
+
+Setup the working directory to generate the released version and be used in the generated tag.
+Only changes inside the working directory will trigger the version generation.
+
+> [!TIP]
+> You can have as many `rlespinasse/release-that@v1` steps in your workflow if you configure `working-directory` input each time.
+
+```yaml
+- uses: rlespinasse/release-that@v1
+  with:
+    working-directory: "backend"
+
+- uses: rlespinasse/release-that@v1
+  with:
+    working-directory: "frontend"
+```
+
+If `backend` and `frontend` folder already have a `1.0.0` release each, then
+
+| Changes                              | New version tag(s)              |
+| ------------------------------------ | ------------------------------- |
+| feat in `backend`                    | backend-v1.1.0                  |
+| fix in `frontend`                    | frontend-v1.0.1                 |
+| fix in `backend`, feat in `frontend` | backend-v1.0.1, frontend-v1.1.0 |
+
 ### `without-prefix`
+
+> [!WARNING]
+> This input behavior is not applied on the **major tag** generation when `major-tag` input is active.
 
 Remove prefix from released version, like `v1.0.0` -> `1.0.0` (doesn't apply to major tag)
 

@@ -7,6 +7,11 @@ inputs:
     # Read https://github.com/cycjimmy/semantic-release-action#semantic_version
     default: ''
     description: 'Specify specifying version range for semantic-release. If no version range is specified, latest version will be used by default'
+  working-directory:
+    required: true
+    # Read https://github.com/cycjimmy/semantic-release-action#working_directory
+    default: ''
+    description: 'Specify another working directory for semantic release. Default one is provided by github.'
   dry-run:
     description: 'Whether to run semantic release in `dry-run` mode'
     default: 'false'
@@ -55,21 +60,37 @@ branding:
 runs:
   using: 'composite'
   steps:
-    - uses: rlespinasse/github-slug-action@v5
+    # Setup steps
+    - name: Enhance GitHub context
+      uses: rlespinasse/github-slug-action@v5
       with:
         prefix: RT_
-    - run: $GITHUB_ACTION_PATH/setup.sh
+    - name: Prepare working directory slug data
+      id: working-directory-slug
+      uses: rlespinasse/slugify-value@v1
+      with:
+        key: WORKING_DIRECTORY
+        value: ${{ inputs.working-directory }}
+        prefix: RT_
+    - name: Do preflight to release that
+      id: preflight
+      run: $GITHUB_ACTION_PATH/setup.sh
       shell: bash
       env:
-        INPUT_DRYRUN: ${{ inputs.dry-run }}
-        INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
-        REPOSITORY_NAME: ${{ env.RT_GITHUB_REPOSITORY_NAME_PART }}
-        REF_POINT: ${{ env.RT_GITHUB_REF_NAME }}
+        SETUP_DRYRUN: ${{ inputs.dry-run }}
+        SETUP_WORKINGDIRECTORY: ${{ inputs.working-directory }}
+        SETUP_WORKINGDIRECTORYSLUG: ${{ steps.working-directory-slug.outputs.slug }}
+        SETUP_WITHOUTPREFIX: ${{ inputs.without-prefix }}
+        SETUP_REPOSITORY_NAME: ${{ env.RT_GITHUB_REPOSITORY_NAME_PART }}
+        SETUP_GITHUB_REF_POINT: ${{ env.RT_GITHUB_REF_NAME }}
+
+    # Main step
     - name: Semantic Release
       id: semantic-release
       uses: cycjimmy/semantic-release-action@v6
       with:
         semantic_version: ${{ inputs.semantic_version }}
+        working_directory: ${{ inputs.working-directory }}
         dry_run: ${{ inputs.dry-run }}
         ci: true
         extra_plugins: |
@@ -77,17 +98,21 @@ runs:
           @semantic-release/release-notes-generator
           @semantic-release/git
           @semantic-release/github
+        extends: |
+          ${{ steps.preflight.outputs.extends-config }}
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
+
+    # Major tag steps
     - name: Major Tag Publication
       id: major-tag
       run: $GITHUB_ACTION_PATH/major-tag.sh
       shell: bash
       env:
-        INPUT_DRYRUN: ${{ inputs.dry-run }}
-        INPUT_MAJORTAG: ${{ inputs.major-tag }}
-        INPUT_WITHOUTPREFIX: ${{ inputs.without-prefix }}
-        INPUT_GITHUB_TOKEN: ${{ inputs.github-token }}
-        NEW_RELEASE_PUBLISHED: ${{ steps.semantic-release.outputs.new_release_published }}
-        NEW_RELEASE_VERSION: ${{ steps.semantic-release.outputs.new_release_version }}
-        NEW_RELEASE_MAJOR_VERSION: ${{ steps.semantic-release.outputs.new_release_major_version }}
+        MAJOR_TAG_DRYRUN: ${{ inputs.dry-run }}
+        MAJOR_TAG_MAJORTAG: ${{ inputs.major-tag }}
+        MAJOR_TAG_GITHUB_TOKEN: ${{ inputs.github-token }}
+        MAJOR_TAG_NEW_RELEASE_PUBLISHED: ${{ steps.semantic-release.outputs.new_release_published }}
+        MAJOR_TAG_NEW_RELEASE_VERSION: ${{ steps.semantic-release.outputs.new_release_version }}
+        MAJOR_TAG_NEW_RELEASE_GIT_TAG: ${{ steps.semantic-release.outputs.new_release_git_tag }}
+        MAJOR_TAG_NEW_RELEASE_MAJOR_VERSION: ${{ steps.semantic-release.outputs.new_release_major_version }}
