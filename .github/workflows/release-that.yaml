@@ -28,7 +28,7 @@ jobs:
         uses: ./
         with:
           dry-run: true
-          github-token: ${{ secrets.GH_TOKEN }}
+          github-token: ${{ secrets.GH_TOKEN || github.token }}
 
       # test 2
       - name: Test 'without-prefix' input
@@ -36,7 +36,7 @@ jobs:
         with:
           dry-run: true
           without-prefix: true
-          github-token: ${{ secrets.GH_TOKEN }}
+          github-token: ${{ secrets.GH_TOKEN || github.token }}
 
       # test 3
       - name: Test 'major-tag=true' input
@@ -44,7 +44,7 @@ jobs:
         with:
           dry-run: true
           major-tag: true
-          github-token: ${{ secrets.GH_TOKEN }}
+          github-token: ${{ secrets.GH_TOKEN || github.token }}
 
       # test 4
       - name: Test 'major-tag=false' input
@@ -52,7 +52,7 @@ jobs:
         with:
           dry-run: true
           major-tag: false
-          github-token: ${{ secrets.GH_TOKEN }}
+          github-token: ${{ secrets.GH_TOKEN || github.token }}
 
       # test 5
       - name: Test 'major-tag=auto' input
@@ -60,7 +60,7 @@ jobs:
         with:
           dry-run: true
           major-tag: auto
-          github-token: ${{ secrets.GH_TOKEN }}
+          github-token: ${{ secrets.GH_TOKEN || github.token }}
 
       # test 6
       - name: Test 'working-directory=.github' input
@@ -68,9 +68,10 @@ jobs:
         with:
           dry-run: true
           working-directory: .github
-          github-token: ${{ secrets.GH_TOKEN }}
+          github-token: ${{ secrets.GH_TOKEN || github.token }}
 
   release:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     needs: os-testing
     permissions:

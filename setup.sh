@@ -53,6 +53,11 @@ inject_releasable_branches() {
 }
 
 if [ "${SETUP_DRYRUN}" == "true" ]; then
+  # For pull_request events, GITHUB_HEAD_REF contains the actual source branch.
+  # RT_GITHUB_REF_NAME would be "<N>/merge" which is not a valid branch for semantic-release.
+  if [ -n "${GITHUB_HEAD_REF}" ]; then
+    SETUP_GITHUB_REF_POINT="${GITHUB_HEAD_REF}"
+  fi
   if [ -n "${SETUP_GITHUB_REF_POINT}" ]; then
     echo "\ Setup current branch as releasable (dry-run mode)"
     inject_current_branch
