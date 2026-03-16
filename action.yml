@@ -98,6 +98,7 @@ runs:
           @semantic-release/release-notes-generator
           @semantic-release/git
           @semantic-release/github
+          ${{ steps.preflight.outputs.extends-config }}
         extends: |
           ${{ steps.preflight.outputs.extends-config }}
       env:

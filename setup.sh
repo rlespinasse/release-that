@@ -74,6 +74,5 @@ echo "::endgroup::"
 if [ -n "$SETUP_WORKINGDIRECTORY" ]; then
   echo "::group::Setup monorepo support"
   echo "extends-config=semantic-release-monorepo" >>"$GITHUB_OUTPUT"
-  npm install -D semantic-release-monorepo
   echo "::endgroup::"
 fi
