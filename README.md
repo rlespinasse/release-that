@@ -1,5 +1,26 @@
 # Release That
 
+> [!WARNING]  
+> **This repository is unmaintained and has been archived.**
+
+This project is no longer under active development. Issues and pull requests will not be monitored or reviewed.
+
+### Migration Guide
+
+If you were using this action, we highly recommend migrating directly to the release steps provided in `rlespinasse/release-that`. You can find the exact code snippet to use here:
+👉 **[rlespinasse/release-that/action.yml#L68-L81](https://github.com/rlespinasse/release-that/blob/v1.x/action.yml#L68-L81)**
+
+### Why was this archived?
+
+The "major tag" feature that this action relied upon is **no longer a recommended behavior**. 
+
+The GitHub Actions ecosystem is moving away from mutable major tags (like `@v1`) in favor of more secure and reliable methods, such as SHA pinning. You can read more about these policy changes and best practices in the official GitHub Changelog:
+🔗 **[GitHub Actions policy now supports blocking and SHA pinning actions](https://github.blog/changelog/2025-08-15-github-actions-policy-now-supports-blocking-and-sha-pinning-actions/)**
+
+Thank you to everyone who used (mainly me 😄) this project over the years!
+
+---
+
 > An opinionated GitHub Action to ease the release of a repository using semantic versioning
 
 Minimal setup to enable semantic release on any repository
